@@ -18,7 +18,44 @@
     <h1 class="text-danger">12000</h1>
   </div>
 
-  <div class="row d-flex justify-content-center mt-5">
+  <div class="row d-flex justify-content-center mt-4">
+    <ul class="list-group col-8">
+      {{#each records}}
+      <li class="list-group-item bg-light">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            {{#categorySame this.category 0}}<i class="fas fa-home fa-2x" style="color: #15aabf"></i>{{/categorySame}}
+            {{#categorySame this.category 1}}<i class="fas fa-shuttle-van fa-2x"
+              style="color: #15aabf"></i>{{/categorySame}}
+            {{#categorySame this.category 2}}<i class="fas fa-grin-beam fa-2x"
+              style="color: #15aabf"></i>{{/categorySame}}
+            {{#categorySame this.category 3}}<i class="fas fa-utensils fa-2x"
+              style="color: #15aabf"></i>{{/categorySame}}
+            {{#categorySame this.category 4}}<i class="fas fa-pen fa-2x" style="color: #15aabf"></i>{{/categorySame}}
+          </div>
+
+          <div class="col-auto mr-auto">
+            <h4>{{this.name}}</h4>
+            <p style="margin: 0px">{{this.date}}</p>
+          </div>
+
+          <div class="col-auto mr-5">
+            <p style="margin: 0px">{{this.amount}}</p>
+          </div>
+
+          <div class="col-auto">
+            <a class="btn btn-success" href="./records/{{ this._id }}/edit">修改</a>
+            <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+              <button class="btn btn-danger" type="submit">刪除</button>
+            </form>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="row d-flex justify-content-center my-5">
     <a class="btn btn-primary" href="" role="button" style="border: 1px solid gray">新增支出</a>
   </div>
 </div>
