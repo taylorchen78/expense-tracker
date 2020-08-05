@@ -13,7 +13,8 @@
       <p class="text-left">名稱*:</p>
     </div>
     <div class="input-group col-4">
-      <input type="text" class="form-control" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1"
+        value="{{record.name}}">
     </div>
   </div>
 
@@ -22,7 +23,7 @@
       <p class="text-left">日期*:</p>
     </div>
     <div class="input-group col-4">
-      <input type="date" class="form-control" value="2020-08-01" aria-label="Date" aria-describedby="basic-addon2">
+      <input type="date" class="form-control" aria-label="Date" aria-describedby="basic-addon2" value="{{record.date}}">
     </div>
   </div>
 
@@ -32,12 +33,9 @@
     </div>
     <div class="input-group col-4">
       <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">家居物業</option>
-        <option value="2">交通出行</option>
-        <option value="3">休閒娛樂</option>
-        <option value="4">餐飲食品</option>
-        <option value="5">其他</option>
+        {{#each categoryList}}
+        <option value="{{@index}}" {{#if this.isSame}} selected {{/if}}>{{ this.name }}</option>
+        {{/each}}
       </select>
     </div>
   </div>
@@ -47,7 +45,8 @@
       <p class="text-left">金額*:</p>
     </div>
     <div class="input-group col-4">
-      <input type="text" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="basic-addon1"
+        value="{{record.amount}}">
     </div>
   </div>
 

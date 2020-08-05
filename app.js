@@ -18,6 +18,7 @@ Handlebars.registerHelper("categorySame", function (category, value, options) {
 })
 
 const Record = require('./models/record')
+const Category = require('./models/category')
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -32,9 +33,26 @@ app.get('/', (req, res) => {
 
 app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
+  const categoryList = []
+
+  Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => {
+      categories.forEach(category => {
+        categoryList.push({ name: category.name })
+      })
+    })
+    .catch(error => console.error(error))
+
   Record.findById(id)
     .lean()
-    .then(record => res.render('edit', { record }))
+    .then(record => {
+      record.date = record.date.split('/').join('-')
+      categoryList[record.category].isSame = true
+      console.log(categoryList)
+      res.render('edit', { record, categoryList })
+    })
     .catch(error => console.error(error))
 })
 
