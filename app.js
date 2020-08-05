@@ -30,6 +30,14 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  Record.findById(id)
+    .lean()
+    .then(record => res.render('edit', { record }))
+    .catch(error => console.error(error))
+})
+
 app.listen(port, () => {
   console.log('App is running on http://localhost:3000')
 })
