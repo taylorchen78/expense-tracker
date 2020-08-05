@@ -11,9 +11,6 @@ const app = express()
 
 const port = 3000
 
-// const Record = require('./models/record')
-// const Category = require('./models/category')
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
