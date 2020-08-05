@@ -8,51 +8,53 @@
     </div>
   </div>
 
-  <div class="row d-flex justify-content-center my-4">
-    <div class="col-2">
-      <p class="text-left">名稱*:</p>
+  <form action="/records" method="POST">
+    <div class="row d-flex justify-content-center my-4">
+      <div class="col-2">
+        <p class="text-left">名稱*:</p>
+      </div>
+      <div class="input-group col-4">
+        <input type="text" class="form-control" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1"
+          required="required" name="name">
+      </div>
     </div>
-    <div class="input-group col-4">
-      <input type="text" class="form-control" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1">
-    </div>
-  </div>
 
-  <div class="row d-flex justify-content-center my-4">
-    <div class="col-2">
-      <p class="text-left">日期*:</p>
+    <div class="row d-flex justify-content-center my-4">
+      <div class="col-2">
+        <p class="text-left">日期*:</p>
+      </div>
+      <div class="input-group col-4">
+        <input type="date" class="form-control" value="{{today}}" aria-label="Date" aria-describedby="basic-addon2"
+          required="required" name="date">
+      </div>
     </div>
-    <div class="input-group col-4">
-      <input type="date" class="form-control" value="2020-08-01" aria-label="Date" aria-describedby="basic-addon2">
-    </div>
-  </div>
 
-  <div class="row d-flex justify-content-center my-4">
-    <div class="col-2">
-      <p class="text-left">類別*:</p>
+    <div class="row d-flex justify-content-center my-4">
+      <div class="col-2">
+        <p class="text-left">類別*:</p>
+      </div>
+      <div class="input-group col-4">
+        <select class="custom-select" id="inputGroupSelect01" name="category">
+          {{#each categoryList}}
+          <option value="{{@index}}">{{ this.name }}</option>
+          {{/each}}
+        </select>
+      </div>
     </div>
-    <div class="input-group col-4">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">家居物業</option>
-        <option value="2">交通出行</option>
-        <option value="3">休閒娛樂</option>
-        <option value="4">餐飲食品</option>
-        <option value="5">其他</option>
-      </select>
-    </div>
-  </div>
 
-  <div class="row d-flex justify-content-center my-4">
-    <div class="col-2">
-      <p class="text-left">金額*:</p>
+    <div class="row d-flex justify-content-center my-4">
+      <div class="col-2">
+        <p class="text-left">金額*:</p>
+      </div>
+      <div class="input-group col-4">
+        <input type="text" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="basic-addon1"
+          required="required" name="amount">
+      </div>
     </div>
-    <div class="input-group col-4">
-      <input type="text" class="form-control" placeholder="Amount" aria-label="Amount" aria-describedby="basic-addon1">
-    </div>
-  </div>
 
-  <div class="row d-flex justify-content-center my-5">
-    <div class="col-2"></div>
-    <button type="submit" class="btn btn-info">新增支出</button>
-  </div>
+    <div class="row d-flex justify-content-center my-5">
+      <div class="col-2"></div>
+      <button type="submit" class="btn btn-info">新增支出</button>
+    </div>
+  </form>
 </div>
