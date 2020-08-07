@@ -15,8 +15,8 @@ router.get('/create', (req, res) => {
       categories.forEach(category => {
         categoryList.push({ name: category.name })
       })
+      res.render('new', { categoryList, today })
     })
-    .then(res.render('new', { categoryList, today }))
     .catch(error => console.error(error))
 })
 
