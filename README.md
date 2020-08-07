@@ -48,9 +48,7 @@ nodemon app.js or npm run dev
 
 6. Open expense website
 ```
-Browse [http://localhost:3000/](http://localhost:3000/) in local
+Browse http://localhost:3000in local
 ```
-or
-```
-Browse [https://afternoon-escarpment-38115.herokuapp.com/](https://afternoon-escarpment-38115.herokuapp.com/) with Heroku server 
+Browse https://afternoon-escarpment-38115.herokuapp.com with Heroku server 
 ```
