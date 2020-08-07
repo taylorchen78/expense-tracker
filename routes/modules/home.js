@@ -20,7 +20,10 @@ router.get('/', (req, res) => {
   Record.find()
     .lean()
     .then(records => {
-      let totalAmount = records.map(record => record.amount).reduce((a, b) => a + b)
+      let totalAmount = 0
+      if (records.length !== 0) {
+        totalAmount = records.map(record => record.amount).reduce((a, b) => a + b)
+      }
       res.render('index', { records, categoryList, totalAmount })
     })
     .catch(error => console.error(error))
