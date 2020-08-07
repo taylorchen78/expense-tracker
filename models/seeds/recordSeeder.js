@@ -1,6 +1,8 @@
 const Record = require('../record')
 const db = require('../../config/mongoose.js')
 
+const initRecords = []
+
 function numToStr(num) {
   let numStr = Math.ceil(Math.random() * num).toString()
 
@@ -13,7 +15,7 @@ function numToStr(num) {
 
 db.once('open', () => {
   for (let i = 0; i < 10; i++) {
-    Record.create({
+    initRecords.push({
       name: 'name-' + i,
       date: '2020/' + numToStr(12) + '/' + numToStr(28),
       category: Math.floor(Math.random() * 5),
@@ -21,5 +23,23 @@ db.once('open', () => {
     })
   }
 
-  console.log('done')
+  Record.insertMany(initRecords)
+    .then(() => {
+      console.log('Records are created')
+      db.close()
+    })
+    .catch(error => console.error(error))
+
+
+  // for (let i = 0; i < 10; i++) {
+  //   Record.create({
+  //     name: 'name-' + i,
+  //     date: '2020/' + numToStr(12) + '/' + numToStr(28),
+  //     category: Math.floor(Math.random() * 5),
+  //     amount: Math.floor(Math.random() * 1000)
+  //   })
+  // }
+
+  // console.log('done')
+  // db.close()
 })

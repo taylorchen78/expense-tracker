@@ -9,9 +9,10 @@ const categories = [
   { name: '其他', icon: '<i class="fas fa-pen"></i>' }]
 
 db.once('open', () => {
-  categories.forEach(element => {
-    Category.create(element)
-  })
-
-  console.log('Categories are created')
+  Category.insertMany(categories)
+    .then(() => {
+      console.log('Categories are created')
+      db.close()
+    })
+    .catch(error => console.error(error))
 })
