@@ -38,14 +38,15 @@ router.get('/:id/edit', (req, res) => {
         categoryList.push({ name: category.name })
       })
     })
-    .catch(error => console.error(error))
-
-  Record.findById(id)
-    .lean()
-    .then(record => {
-      record.date = record.date.split('/').join('-')
-      categoryList[record.category].isSame = true
-      res.render('edit', { record, categoryList })
+    .then(() => {
+      Record.findById(id)
+        .lean()
+        .then(record => {
+          record.date = record.date.split('/').join('-')
+          categoryList[record.category].isSame = true
+          res.render('edit', { record, categoryList })
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 })
