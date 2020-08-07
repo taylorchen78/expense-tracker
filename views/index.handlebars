@@ -6,7 +6,7 @@
           <select class="form-control" id="category" name="category" onchange="this.form.submit()">
             <option value="-1">類別</option>
             {{#each categoryList}}
-            <option value="{{@index}}">{{ this.name }}</option>
+            <option value="{{@index}}" {{#if this.isSame}} selected {{/if}}>{{ this.name }}</option>
             {{/each}}
           </select>
         </form>
