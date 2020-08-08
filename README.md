@@ -38,7 +38,7 @@ npm install express
 
 4. Run seed generator
 ```
-npm run dev
+npm run seed
 ```
 
 5. Run project
