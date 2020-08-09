@@ -25,14 +25,7 @@
       <li class="list-group-item bg-light">
         <div class="row align-items-center">
           <div class="col-auto col-2" style="text-align: center">
-            {{#categorySame this.category 0}}<i class="fas fa-home fa-2x" style="color: #15aabf"></i>{{/categorySame}}
-            {{#categorySame this.category 1}}<i class="fas fa-shuttle-van fa-2x"
-              style="color: #15aabf"></i>{{/categorySame}}
-            {{#categorySame this.category 2}}<i class="fas fa-grin-beam fa-2x"
-              style="color: #15aabf"></i>{{/categorySame}}
-            {{#categorySame this.category 3}}<i class="fas fa-utensils fa-2x"
-              style="color: #15aabf"></i>{{/categorySame}}
-            {{#categorySame this.category 4}}<i class="fas fa-pen fa-2x" style="color: #15aabf"></i>{{/categorySame}}
+            <i class="fas {{ this.icon }} fa-2x" style="color: #15aabf"></i>
           </div>
 
           <div class="col-auto mr-auto">

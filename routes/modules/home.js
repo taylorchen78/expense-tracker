@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     .sort({ _id: 'asc' })
     .then(categories => {
       categories.forEach(category => {
-        categoryList.push({ name: category.name })
+        categoryList.push({ name: category.name, icon: category.icon })
       })
     })
     .then(() => {
@@ -23,6 +23,11 @@ router.get('/', (req, res) => {
           if (records.length !== 0) {
             totalAmount = records.map(record => record.amount).reduce((a, b) => a + b)
           }
+
+          records.forEach(record => {
+            record.icon = categoryList[record.category].icon
+          })
+
           res.render('index', { records, categoryList, totalAmount })
         })
         .catch(error => console.error(error))

@@ -2,11 +2,11 @@ const Category = require('../category')
 const db = require('../../config/mongoose.js')
 
 const categories = [
-  { name: '家居物業', icon: '<i class="fas fa-home"></i>' },
-  { name: '交通出行', icon: '<i class="fas fa-shuttle-van"></i>' },
-  { name: '休閒娛樂', icon: '<i class="fas fa-grin-beam"></i>' },
-  { name: '餐飲食品', icon: '<i class="fas fa-utensils"></i>' },
-  { name: '其他', icon: '<i class="fas fa-pen"></i>' }]
+  { name: '家居物業', icon: 'fas fa-home' },
+  { name: '交通出行', icon: 'fas fa-shuttle-van' },
+  { name: '休閒娛樂', icon: 'fas fa-grin-beam' },
+  { name: '餐飲食品', icon: 'fas fa-utensils' },
+  { name: '其他', icon: 'fas fa-pen' }]
 
 db.once('open', () => {
   Category.insertMany(categories)
