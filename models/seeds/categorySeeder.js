@@ -9,10 +9,14 @@ const categories = [
   { name: '其他', icon: 'fas fa-pen' }]
 
 db.once('open', () => {
-  Category.insertMany(categories)
+  Category.deleteMany()
     .then(() => {
-      console.log('Categories are created')
-      db.close()
+      Category.insertMany(categories)
+        .then(() => {
+          console.log('Categories are created')
+          db.close()
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 })
