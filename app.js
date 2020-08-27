@@ -16,13 +16,15 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-Handlebars.registerHelper("categorySame", function (category, value, options) {
-  if (category === value) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-})
+// Handlebars.registerHelper("monthSame", function (month, value, options) {
+//   console.log('month', month)
+//   console.log('value', value)
+//   if (month === value) {
+//     return options.fn(this);
+//   } else {
+//     return options.inverse(this);
+//   }
+// })
 
 app.use(routes)
 

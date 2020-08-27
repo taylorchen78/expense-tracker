@@ -5,36 +5,52 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 router.post('/', (req, res) => {
-  const selectCategory = Number(req.body.category)
+  const categoryList = []
+  const months = []
 
-  if (selectCategory === -1) {
-    res.redirect('/')
-  } else {
-    const categoryList = []
+  const filter = {}
+  if (req.body.month.length !== 0) filter.date = { $regex: req.body.month }
+  if (req.body.category.length !== 0) filter.category = Number(req.body.category)
 
-    Category.find()
-      .lean()
-      .sort({ _id: 'asc' })
-      .then(categories => {
-        categories.forEach(category => {
-          categoryList.push({ name: category.name })
-        })
+  Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => {
+      categories.forEach(category => {
+        categoryList.push({ name: category.name, icon: category.icon })
       })
-      .then(() => {
-        Record.find({ category: selectCategory })
-          .lean()
-          .then(records => {
-            let totalAmount = 0
-            if (records.length !== 0) {
-              totalAmount = records.map(record => record.amount).reduce((a, b) => a + b)
+    })
+    .then(() => {
+      Record.find()
+        .lean()
+        .then(records => {
+          records.forEach(record => {
+            const month = record.date.substr(0, 7) //ex: 2020/08
+            if (!months.includes(month)) {
+              months.push(month)
             }
-            categoryList[selectCategory].isSame = true
-            res.render('index', { records, categoryList, totalAmount })
           })
-          .catch(error => console.error(error))
-      })
-      .catch(error => console.error(error))
-  }
+        })
+
+      Record.find(filter)
+        .lean()
+        .then(records => {
+          let totalAmount = 0
+          if (records.length !== 0) {
+            totalAmount = records.map(record => record.amount).reduce((a, b) => a + b)
+          }
+
+          records.forEach(record => {
+            record.icon = categoryList[record.category].icon
+          })
+
+          if (filter.category !== undefined) categoryList[filter.category].isSame = true
+
+          res.render('index', { records, categoryList, totalAmount, months })
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 })
 
 module.exports = router

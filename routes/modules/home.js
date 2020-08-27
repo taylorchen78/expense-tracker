@@ -20,15 +20,23 @@ router.get('/', (req, res) => {
         .lean()
         .then(records => {
           let totalAmount = 0
+          const months = []
+
           if (records.length !== 0) {
             totalAmount = records.map(record => record.amount).reduce((a, b) => a + b)
           }
 
           records.forEach(record => {
             record.icon = categoryList[record.category].icon
+            const month = record.date.substr(0, 7) //ex: 2020/08
+            if (!months.includes(month)) {
+              months.push(month)
+            }
           })
 
-          res.render('index', { records, categoryList, totalAmount })
+          months.sort()
+
+          res.render('index', { records, categoryList, totalAmount, months })
         })
         .catch(error => console.error(error))
     })
