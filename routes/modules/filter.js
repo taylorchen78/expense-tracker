@@ -8,7 +8,9 @@ router.post('/', (req, res) => {
   const categoryList = []
   const months = []
 
-  const filter = {}
+  const userId = req.user._id
+
+  const filter = { userId }
   if (req.body.month.length !== 0) filter.date = { $regex: req.body.month }
   if (req.body.category.length !== 0) filter.category = Number(req.body.category)
 
@@ -21,7 +23,7 @@ router.post('/', (req, res) => {
       })
     })
     .then(() => {
-      Record.find()
+      Record.find({ userId })
         .lean()
         .then(records => {
           records.forEach(record => {
