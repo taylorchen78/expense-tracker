@@ -6,9 +6,11 @@ const records = require('./modules/records')
 const filter = require('./modules/filter')
 const users = require('./modules/users')
 
-router.use('/records', records)
-router.use('/filter', filter)
+const { authenticator } = require('../middleware/auth')
+
+router.use('/records', authenticator, records)
+router.use('/filter', authenticator, filter)
 router.use('/users', users)
-router.use('/', home)
+router.use('/', authenticator, home)
 
 module.exports = router

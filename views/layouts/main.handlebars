@@ -16,8 +16,13 @@
 
 <body>
   <!-- navigation -->
-  <nav class="navbar navbar-dark bg-secondary">
-    <a class="navbar-brand" href="/">家庭記帳簿</a>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">{{#if isAuthenticated}}{{#if user.name}}{{user.name}}'s {{/if}}{{/if}}家庭記帳簿</a>
+    {{#if isAuthenticated}}
+    <a href="/users/logout" class="btn btn-outline-primary">Logout</a>
+    {{else}}
+    <a href="/users/login" class="btn btn-outline-primary">Login</a>
+    {{/if}}
   </nav>
 
   {{{ body }}}
