@@ -1,9 +1,11 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const session = require('express-session')
 const bodyParser = require('body-parser')
 const Handlebars = require("handlebars")
 const methodOverride = require('method-override')
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 
 require('./config/mongoose')
 
@@ -16,6 +18,12 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
+app.use(session({
+  secret: 'ThisIsExpenseTrackerSecret',
+  resave: false,
+  saveUninitialized: true
+}))
+
 // Handlebars.registerHelper("monthSame", function (month, value, options) {
 //   console.log('month', month)
 //   console.log('value', value)
@@ -25,6 +33,8 @@ app.use(methodOverride('_method'))
 //     return options.inverse(this);
 //   }
 // })
+
+usePassport(app)
 
 app.use(routes)
 
