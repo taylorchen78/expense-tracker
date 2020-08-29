@@ -53,7 +53,6 @@ router.post('/', (req, res) => {
           }
 
           records.forEach(record => {
-            console.log(record)
             record.icon = categoryList[record.category].icon
           })
 

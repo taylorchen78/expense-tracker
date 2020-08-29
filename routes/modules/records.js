@@ -64,7 +64,10 @@ router.put('/:id', (req, res) => {
 
   Record.findOne({ _id, userId })
     .then(record => {
-      record = Object.assign(record, req.body)
+      let { name, date, category, merchant, amount } = req.body
+      date = date.split('-').join('/')
+
+      record = Object.assign(record, { name, date, category, merchant, amount })
       record.save()
     })
     .then(() => res.redirect(`/`))

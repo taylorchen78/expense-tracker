@@ -1,20 +1,13 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-
 const Record = require('../record')
 const User = require('../user')
 const db = require('../../config/mongoose.js')
 const bcrypt = require('bcryptjs')
-
-const initRecords = []
 
 const SEED_USER = {
   name: 'Tony Stark',
   email: 'tony@stark.com',
   password: '1234',
 }
-
 
 function numToStr(num) {
   let numStr = Math.ceil(Math.random() * num).toString()
