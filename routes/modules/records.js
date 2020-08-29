@@ -32,17 +32,20 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
   const userId = req.user._id
-  const categoryList = []
 
-  Category.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      categories.forEach(category => {
-        categoryList.push({ name: category.name })
+  new Promise((resolve, reject) => {
+    Category.find()
+      .lean()
+      .sort({ _id: 'asc' })
+      .then(categories => {
+        const categoryList = []
+        categories.forEach(category => {
+          categoryList.push({ name: category.name, icon: category.icon })
+        })
+        return resolve(categoryList)
       })
-    })
-    .then(() => {
+  })
+    .then(categoryList => {
       Record.findOne({ _id, userId })
         .lean()
         .then(record => {

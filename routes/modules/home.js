@@ -5,18 +5,21 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 router.get('/', (req, res) => {
-  const categoryList = []
   const userId = req.user._id
 
-  Category.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      categories.forEach(category => {
-        categoryList.push({ name: category.name, icon: category.icon })
+  new Promise((resolve, reject) => {
+    Category.find()
+      .lean()
+      .sort({ _id: 'asc' })
+      .then(categories => {
+        const categoryList = []
+        categories.forEach(category => {
+          categoryList.push({ name: category.name, icon: category.icon })
+        })
+        return resolve(categoryList)
       })
-    })
-    .then(() => {
+  })
+    .then(categoryList => {
       Record.find({ userId })
         .lean()
         .then(records => {

@@ -5,9 +5,6 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 router.post('/', (req, res) => {
-  const categoryList = []
-  const months = []
-
   const userId = req.user._id
   const selectMonth = req.body.month
 
@@ -15,25 +12,37 @@ router.post('/', (req, res) => {
   if (req.body.month.length !== 0) filter.date = { $regex: req.body.month }
   if (req.body.category.length !== 0) filter.category = Number(req.body.category)
 
-  Category.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      categories.forEach(category => {
-        categoryList.push({ name: category.name, icon: category.icon })
-      })
-    })
-    .then(() => {
-      Record.find({ userId })
-        .lean()
-        .then(records => {
-          records.forEach(record => {
-            const month = record.date.substr(0, 7) //ex: 2020/08
-            if (!months.includes(month)) {
-              months.push(month)
-            }
-          })
+  const getCatogory = new Promise((resolve, reject) => {
+    Category.find()
+      .lean()
+      .sort({ _id: 'asc' })
+      .then(categories => {
+        const categoryList = []
+        categories.forEach(category => {
+          categoryList.push({ name: category.name, icon: category.icon })
         })
+        return resolve(categoryList)
+      })
+  })
+
+  const getMonth = new Promise((resolve, reject) => {
+    Record.find({ userId })
+      .lean()
+      .then(records => {
+        const months = []
+        records.forEach(record => {
+          const month = record.date.substr(0, 7) //ex: 2020/08
+          if (!months.includes(month)) {
+            months.push(month)
+          }
+        })
+        return resolve(months)
+      })
+  })
+
+  Promise.all([getCatogory, getMonth])
+    .then(data => {
+      const [categoryList, months] = data
 
       Record.find(filter)
         .lean()
@@ -44,6 +53,7 @@ router.post('/', (req, res) => {
           }
 
           records.forEach(record => {
+            console.log(record)
             record.icon = categoryList[record.category].icon
           })
 
@@ -53,7 +63,6 @@ router.post('/', (req, res) => {
         })
         .catch(error => console.error(error))
     })
-    .catch(error => console.error(error))
 })
 
 module.exports = router
