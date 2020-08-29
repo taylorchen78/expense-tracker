@@ -25,15 +25,13 @@ app.use(session({
   saveUninitialized: true
 }))
 
-// Handlebars.registerHelper("monthSame", function (month, value, options) {
-//   console.log('month', month)
-//   console.log('value', value)
-//   if (month === value) {
-//     return options.fn(this);
-//   } else {
-//     return options.inverse(this);
-//   }
-// })
+Handlebars.registerHelper("ifEqual", function (arg1, arg2, options) {
+  if (arg1 === arg2) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+})
 
 usePassport(app)
 

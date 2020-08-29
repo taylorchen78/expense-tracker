@@ -9,6 +9,7 @@ router.post('/', (req, res) => {
   const months = []
 
   const userId = req.user._id
+  const selectMonth = req.body.month
 
   const filter = { userId }
   if (req.body.month.length !== 0) filter.date = { $regex: req.body.month }
@@ -48,7 +49,7 @@ router.post('/', (req, res) => {
 
           if (filter.category !== undefined) categoryList[filter.category].isSame = true
 
-          res.render('index', { records, categoryList, totalAmount, months })
+          res.render('index', { records, categoryList, totalAmount, months, selectMonth })
         })
         .catch(error => console.error(error))
     })
