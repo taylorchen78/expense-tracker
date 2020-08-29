@@ -7,7 +7,7 @@ const initRecords = []
 
 const SEED_USER = {
   name: 'Tony Stark',
-  email: 'tony@example.com',
+  email: 'tony@stark.com',
   password: '1234',
 }
 
@@ -38,6 +38,7 @@ db.once('open', () => {
           name: 'name-' + i,
           date: '2020/' + numToStr(12) + '/' + numToStr(28),
           category: Math.floor(Math.random() * 5),
+          merchant: Math.random().toString(36).substr(2, 5),
           amount: Math.floor(Math.random() * 1000),
           userId: userId
         })
