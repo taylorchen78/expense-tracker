@@ -28,8 +28,10 @@ module.exports = app => {
   }))
 
   passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
+    // clientID: process.env.FACEBOOK_ID,
+    // clientSecret: process.env.FACEBOOK_SECRET,
+    clientID: 'aaa',
+    clientSecret: 'bbb',
     callbackURL: process.env.FACEBOOK_CALLBACK_URL,
     profileFields: ['email', 'displayName']
   }, (accessToken, refreshToken, profile, done) => {
